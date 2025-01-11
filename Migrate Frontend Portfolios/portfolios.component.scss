@@ -1,0 +1,71 @@
+/* Tailwind CSS utilities are preferred for styling. Use these as overrides or additional styles */
+
+/* Panel styling */
+.panel {
+  @apply bg-white shadow-md rounded p-4;
+}
+
+.panel-primary {
+  @apply border border-gray-300;
+}
+
+.panel-heading {
+  @apply flex justify-between items-center border-b pb-2 mb-4;
+}
+
+.panel-title {
+  @apply text-lg font-bold;
+}
+
+/* Buttons */
+.btn {
+  @apply px-4 py-2 rounded-md text-white;
+}
+
+.btn-primary {
+  @apply bg-blue-500 hover:bg-blue-600;
+}
+
+.btn-secondary {
+  @apply bg-gray-500 hover:bg-gray-600;
+}
+
+/* Table styling */
+.table {
+  @apply w-full text-left;
+}
+
+.table thead {
+  @apply bg-gray-100;
+}
+
+.table th, .table td {
+  @apply px-4 py-2;
+}
+
+.table-hover tr:hover {
+  @apply bg-gray-50;
+}
+
+/* Pagination */
+.pagination {
+  @apply flex justify-between items-center mt-4;
+}
+
+/* Forms */
+.form-control {
+  @apply w-full border border-gray-300 rounded p-2;
+}
+
+textarea {
+  @apply w-full border border-gray-300 rounded p-2;
+}
+
+/* Utilities */
+.text-muted {
+  @apply text-gray-500;
+}
+
+.text-primary {
+  @apply text-blue-500;
+}

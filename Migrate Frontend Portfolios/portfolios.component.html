@@ -1,0 +1,83 @@
+<div class="container mx-auto p-6">
+  <!-- Tabs -->
+  <mat-tab-group [(selectedIndex)]="activeTabIndex" class="mb-6">
+    <mat-tab *ngFor="let tab of tabs" [label]="tab.title"></mat-tab>
+  </mat-tab-group>
+
+  <!-- Tab Content: Select Student -->
+  <div *ngIf="activeTabIndex === 0" class="bg-white rounded shadow p-4">
+    <div class="flex justify-between items-center mb-4">
+      <div>
+        <h2 class="text-xl font-bold">Mark Portfolios</h2>
+        <p class="text-gray-600">Assess student portfolios</p>
+      </div>
+      <div class="space-x-2">
+        <button mat-button (click)="setPortfolioFilter('allStudents')">
+          <mat-icon>public</mat-icon>
+        </button>
+        <button mat-button (click)="setPortfolioFilter('withPortfolio')">
+          <mat-icon>book</mat-icon>
+        </button>
+        <button mat-button (click)="setStudentFilter('allStudents')">
+          <mat-icon>school</mat-icon>
+        </button>
+        <button mat-button (click)="setStudentFilter('myStudents')">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-form-field appearance="outline" class="w-full mb-4">
+      <mat-label>Search Students</mat-label>
+      <input matInput [(ngModel)]="search" placeholder="Search by name or ID" />
+    </mat-form-field>
+
+    <table mat-table [dataSource]="filteredStudents" class="w-full shadow">
+      <ng-container matColumnDef="studentId">
+        <th mat-header-cell *matHeaderCellDef> Student ID </th>
+        <td mat-cell *matCellDef="let student"> {{ student.studentId }} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let student"> {{ student.name }} </td>
+      </ng-container>
+      <ng-container matColumnDef="tutor">
+        <th mat-header-cell *matHeaderCellDef> Tutor </th>
+        <td mat-cell *matCellDef="let student"> {{ student.tutorName }} </td>
+      </ng-container>
+      <ng-container matColumnDef="grade">
+        <th mat-header-cell *matHeaderCellDef> Grade </th>
+        <td mat-cell *matCellDef="let student"> {{ student.grade }} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="['studentId', 'name', 'tutor', 'grade']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['studentId', 'name', 'tutor', 'grade']"></tr>
+    </table>
+
+    <mat-paginator [length]="filteredStudents.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  </div>
+
+  <!-- Tab Content: View Progress -->
+  <div *ngIf="activeTabIndex === 1" class="bg-white rounded shadow p-4">
+    <h3 class="text-xl font-bold">View Progress</h3>
+    <p class="text-gray-600">Monitor student task completion and progress.</p>
+  </div>
+
+  <!-- Tab Content: View Portfolio -->
+  <div *ngIf="activeTabIndex === 2" class="bg-white rounded shadow p-4">
+    <h3 class="text-xl font-bold">View Portfolio</h3>
+    <p *ngIf="!selectedStudent" class="text-gray-600">No student selected.</p>
+    <div *ngIf="selectedStudent">
+      <p>Portfolio details for {{ selectedStudent.name }} will appear here.</p>
+    </div>
+  </div>
+
+  <!-- Tab Content: Assess Portfolio -->
+  <div *ngIf="activeTabIndex === 3" class="bg-white rounded shadow p-4">
+    <h3 class="text-xl font-bold">Assess Portfolio</h3>
+    <p *ngIf="!selectedStudent" class="text-gray-600">No student selected.</p>
+    <div *ngIf="selectedStudent">
+      <textarea matInput [(ngModel)]="selectedStudent.grade" placeholder="Enter grade" class="w-full mb-4"></textarea>
+      <button mat-raised-button color="primary" (click)="assignGrade(selectedStudent.grade)">Save Grade</button>
+    </div>
+  </div>
+</div>
